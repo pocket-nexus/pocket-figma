@@ -11,15 +11,15 @@
 //   bun run golden:update   # regenerate, then inspect every PNG
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { createWasmUi } from "../vendor/pocketjs/host-web/wasm-ops.js";
-import { unpack } from "../vendor/pocketjs/compiler/pak.ts";
-import { BTN, SCREEN_H, SCREEN_W } from "../vendor/pocketjs/spec/spec.ts";
-import { encodePNG } from "../vendor/pocketjs/test/png.ts";
+import { createWasmUi } from "../vendor/pocketjs/hosts/web/wasm-ops.js";
+import { unpack } from "../vendor/pocketjs/framework/compiler/pak.ts";
+import { BTN, SCREEN_H, SCREEN_W } from "../vendor/pocketjs/contracts/spec/spec.ts";
+import { encodePNG } from "../vendor/pocketjs/tests/png.ts";
 import { compilePocketTarget } from "../scripts/pocket-plan.ts";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const DIST = `${ROOT}dist/`;
-const WASM = `${ROOT}vendor/pocketjs/host-web/pocketjs.wasm`;
+const WASM = `${ROOT}vendor/pocketjs/hosts/web/pocketjs.wasm`;
 const GOLDENS = `${ROOT}test/goldens-vita/`;
 const UPDATE = process.env.UPDATE === "1";
 
@@ -127,7 +127,7 @@ async function ensureArtifacts(): Promise<void> {
   // Always rebuild the application: silently testing a stale bundle is worse
   // than the few seconds this deterministic build costs.
   await compilePocketTarget("vita");
-  run(["bun", "vendor/pocketjs/scripts/wasm.ts"]);
+  run(["bun", "vendor/pocketjs/tools/wasm.ts"]);
 }
 
 function distinctPixels(rgba: Uint8Array): number {
@@ -213,8 +213,8 @@ await ensureArtifacts();
 mkdirSync(GOLDENS, { recursive: true });
 
 const wasmBytes = await Bun.file(WASM).arrayBuffer();
-const js = await Bun.file(`${DIST}main.js`).text();
-const pak = await Bun.file(`${DIST}main.pak`).arrayBuffer();
+const js = await Bun.file(`${DIST}pocket-figma.js`).text();
+const pak = await Bun.file(`${DIST}pocket-figma.pak`).arrayBuffer();
 assertDensity2Tiles(pak);
 
 let passed = 0;

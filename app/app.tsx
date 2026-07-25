@@ -33,6 +33,9 @@ const TILE_ASSETS = {
 
 const tileAssets = TILE_ASSETS[platform.pixelRatio >= 2 ? 2 : 1];
 const { PAGES, TILE } = tileAssets;
+const CONTROL_HINT = platform.target === "symbian-e7-dev"
+  ? "T/S page  Q/E zoom  Esc fit"
+  : "TRI/SQR page  R/L zoom  X fit";
 
 /** Baked manifest -> the DeepZoom engine's document shape. */
 const DOCS: TileDoc[] = PAGES.map((p) => ({
@@ -112,7 +115,7 @@ export default function App() {
       <View class="absolute left-0 right-0 bottom-0 h-7 flex-row items-center justify-between bg-slate-900 px-2">
         <Text class="text-xs text-white">{DOCS[page()].name}</Text>
         <Text class="text-xs text-slate-400">
-          {"TRI/SQR page  R/L zoom  X fit"}
+          {CONTROL_HINT}
         </Text>
         <Text
           class="text-xs text-white"

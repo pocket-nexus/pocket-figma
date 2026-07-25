@@ -12,7 +12,7 @@ license = "MIT"
 build = "build.rs"
 
 [dependencies]
-pocketjs-vita = { path = "../../vendor/pocketjs/native-vita" }
+pocketjs-vita = { path = "../../vendor/pocketjs/hosts/vita" }
 libquickjs-sys = { git = "https://github.com/pocket-stack/quickjs-rs.git", rev = "0fc946fb670c0c29bc0135f510bcb0f595415a61", optional = true }
 vitasdk-sys = { version = "0.3.3", features = [
   "SceCtrl_stub",

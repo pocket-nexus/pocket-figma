@@ -4,26 +4,34 @@
   "id": "dev.pocket-stack.figma",
   "name": "pocket-figma",
   "title": "Pocket Figma",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engine": {
     "capabilities": {
       "requires": [
         "text.glyphs.baked",
-        "input.buttons",
-        "input.analog.left"
+        "input.buttons"
       ],
       "enhances": [
-        "input.touch"
+        "input.analog.left",
+        "input.touch",
+        "display.viewport.live"
       ]
     }
   },
   "app": {
     "entry": "app/main.tsx",
-    "output": "main",
+    "output": "pocket-figma",
     "framework": "solid",
     "viewport": {
-      "logical": [480, 272],
-      "presentation": "integer-fit"
+      "fixed": {
+        "logical": [480, 272],
+        "presentation": "integer-fit"
+      },
+      "dynamic": {
+        "default": [640, 360],
+        "min": [360, 360],
+        "max": [640, 640]
+      }
     }
   }
 }

@@ -24,8 +24,8 @@ import {
   rmSync,
 } from "node:fs";
 import { resolve } from "node:path";
-import { VITA_REQUIRED_SYSTEM_ASSETS } from "../vendor/pocketjs/scripts/vita-package.ts";
-import { encodePNG } from "../vendor/pocketjs/test/png.ts";
+import { VITA_REQUIRED_SYSTEM_ASSETS } from "../vendor/pocketjs/tools/vita-package.ts";
+import { encodePNG } from "../vendor/pocketjs/tests/png.ts";
 
 const vitaSystemAssets = new Set<string>(VITA_REQUIRED_SYSTEM_ASSETS);
 

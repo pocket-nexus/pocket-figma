@@ -2,7 +2,7 @@
 #![no_main]
 
 //! Pocket Figma PSP host — the stock PocketJS 2D frame loop over the
-//! pocketjs-psp library (vendor/pocketjs/native/src/main.rs with the
+//! pocketjs-psp library (vendor/pocketjs/hosts/psp/src/main.rs with the
 //! capture/bench/trace instrumentation stripped): boot QuickJS on a 2 MB
 //! worker thread, feed the embedded pak to the Rust core, evaluate the
 //! embedded bundle, then drive frame(buttons, analog) per vblank while the
@@ -29,7 +29,7 @@ static APP_JS: &str = include_str!(concat!(env!("OUT_DIR"), "/app.js"));
 static APP_PAK: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/app.pak"));
 
 // libquickjs-sys omits JS_NewArrayBuffer; the linked QuickJS C library
-// provides it (local-extern pattern, same as vendor/pocketjs/native).
+// provides it (local-extern pattern, same as vendor/pocketjs/hosts/psp).
 // size_t stays usize (MIPS o32).
 extern "C" {
     fn JS_NewArrayBuffer(

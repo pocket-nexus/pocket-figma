@@ -11,7 +11,7 @@ import {
   compilePocketTarget,
   nativePlanEnvironment,
 } from "./pocket-plan.ts";
-import { packageVitaVpk } from "../vendor/pocketjs/scripts/vita-package.ts";
+import { packageVitaVpk } from "../vendor/pocketjs/tools/vita-package.ts";
 
 const repo = new URL("..", import.meta.url).pathname;
 const home = process.env.HOME ?? "";

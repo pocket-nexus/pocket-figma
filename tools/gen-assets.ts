@@ -37,7 +37,7 @@
 import { homedir } from "node:os";
 import { existsSync, mkdirSync, readdirSync, unlinkSync } from "node:fs";
 import { openFig, renderRegion, type FigColor, type FigDoc, type FigPage as FigSrcPage } from "./fig.ts";
-import { encodeTilesetEntry, keyTileset, type TilesetTile } from "../vendor/pocketjs/compiler/pak.ts";
+import { encodeTilesetEntry, keyTileset, type TilesetTile } from "../vendor/pocketjs/framework/compiler/pak.ts";
 import {
   TILESET_DIR_ENTRY_SIZE,
   TILESET_FLAG_LINEAR,
@@ -45,7 +45,7 @@ import {
   TILESET_MAGIC,
   TILESET_VERSION,
   packbitsDecode,
-} from "../vendor/pocketjs/spec/spec.ts";
+} from "../vendor/pocketjs/contracts/spec/spec.ts";
 
 const HERE = new URL("../app/", import.meta.url).pathname; // app/ — baked outputs live beside the viewer
 const LOGICAL_TILE = 256;
