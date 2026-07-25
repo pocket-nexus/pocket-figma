@@ -7,7 +7,8 @@
 //
 // uihost resolves dist/<app>.{js,pak} relative to the POCKETJS checkout by
 // default, which is vendor/pocketjs here — so instead of copying artifacts
-// in, this script passes our dist/main.js + dist/main.pak EXPLICITLY via
+// in, this script passes our dist/pocket-figma.js + dist/pocket-figma.pak
+// EXPLICITLY via
 // uihost's --js/--pak flags (--app then only names the window title and the
 // eval source label). Extra args are forwarded to uihost verbatim.
 //
@@ -16,15 +17,17 @@
 // nub/d-pad pan, R/L zoom, TRIANGLE/SQUARE page, CROSS fit.
 
 import { $ } from "bun";
+import { compilePocketTarget } from "./pocket-plan.ts";
 
 const repo = new URL("..", import.meta.url).pathname;
-const pocket3d = `${repo}vendor/pocketjs/pocket3d/`;
+const engine = `${repo}vendor/pocketjs/engine/`;
 
 console.log("pocket-figma desktop: building the JS bundle");
-await $`bun vendor/pocketjs/scripts/build.ts app/main.tsx --outdir=dist`.cwd(repo);
+const plan = await compilePocketTarget("psp");
+const appOutput = plan.appOutput;
 
 const extra = Bun.argv.slice(2);
 console.log("pocket-figma desktop: cargo run -p uihost");
-await $`cargo run --release -p uihost -- --app pocket-figma --js ${repo}dist/main.js --pak ${repo}dist/main.pak ${extra}`.cwd(
-  pocket3d,
+await $`cargo run --release -p uihost -- --app pocket-figma --js ${repo}dist/${appOutput}.js --pak ${repo}dist/${appOutput}.pak ${extra}`.cwd(
+  engine,
 );

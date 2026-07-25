@@ -9,15 +9,19 @@ Pocket Figma intentionally declares a PSP-shaped baseline rather than separate
 PSP and Vita applications:
 
 - a 480×272 logical canvas with `integer-fit` presentation;
-- baked glyph text;
-- physical buttons and one analog stick;
+- a 640×360 default live viewport that can rotate through 360×640;
+- baked glyph text and physical buttons;
+- optional left-analog, touch, and live-viewport enhancements;
 
 The PSP profile satisfies that contract at 1×. The Vita profile satisfies the
 same contract on its 960×544 fullscreen output and resolves a raster density of
 2. The viewer selects its matching checked-in tile manifest through
-`platform.pixelRatio`; target names never enter application code. Touch is
-absent from both `requires` and `enhances`, so this version neither needs nor
-claims it.
+`platform.pixelRatio`, without branching asset or document behavior on a target
+name. Both console targets keep the fixed 480×272 plan. A live-viewport host
+such as the Nokia E7 selects the dynamic plan instead and relays orientation
+changes without remounting application state. The sole target-name adapter is
+the on-screen physical-key legend: portable `BTN` actions stay identical, while
+the E7 names its keyboard keys instead of showing PlayStation button symbols.
 
 ## Capabilities
 
@@ -25,13 +29,17 @@ Capabilities are plain framework API identifiers. A target advertises only
 APIs its stock host has implemented and tested; the manifest's `requires`
 entries must all be present or resolution fails.
 
-The three requirements in this app are:
+The two hard requirements in this app are:
 
 | capability |
 |---|
 | `text.glyphs.baked` |
 | `input.buttons` |
-| `input.analog.left` |
+
+`input.analog.left`, `input.touch`, and `display.viewport.live` are
+enhancements. DeepZoom falls back from a centered or absent analog stick to
+the d-pad, so stickless hosts remain usable; touch adds direct pan and pinch
+without replacing the controller path.
 
 DrawList is PocketJS's internal core-to-backend rendering IR, not an API this
 application can observe or request, so it is intentionally not a capability.
@@ -40,9 +48,11 @@ platform capability.
 
 ## Viewport and build boundary
 
-The application owns only its logical viewport and presentation intent. The
-selected target profile owns the physical display. Package metadata remains
-in the native PSP/Vita projects until a PocketJS backend actually consumes it.
+The application owns its fixed baseline plus the accepted dynamic logical
+viewport range. The selected target profile owns the physical display and
+chooses which viewport mode it can satisfy. The Symbian backend derives its
+development UID from the durable app id and its SIS/executable names from the
+resolved app output; no private target fields are added to this manifest.
 
 Build behavior stays in `scripts/`. Both native build drivers ask the vendored
 PocketJS CLI to validate the manifest, run the ordinary reachable TypeScript

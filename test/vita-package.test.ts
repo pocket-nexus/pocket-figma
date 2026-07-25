@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import {
   resolveVitaPackageAssets,
   VITA_REQUIRED_SYSTEM_ASSETS,
-} from "../vendor/pocketjs/scripts/vita-package.ts";
+} from "../vendor/pocketjs/tools/vita-package.ts";
 
 const root = new URL("..", import.meta.url).pathname;
 const applicationAssets = `${root}crates/pocket-figma-vita/static`;

@@ -36,6 +36,12 @@ reference instance of the [Pocket app manifest](./docs/manifest.md).
 | R / L trigger | zoom in / out |
 | △ / □ | next / previous page |
 | ✕ | fit page |
+| Nokia E7 `E` / `Q` | zoom in / out |
+| Nokia E7 `T` / `S` | next / previous page |
+| Nokia E7 `Esc` | fit page |
+
+Page switching loops through all four baked canvases: Welcome, Components,
+Stickers, and Examples.
 
 ## Build
 
@@ -44,9 +50,11 @@ bun run setup         # submodules + vendored deps
 bun run bootstrap     # install the pinned PSP toolchain into the shared cache
 bun run bake          # regenerate committed 1x + 2x tile pyramids from the .fig
 bun run check:platforms  # validate the PSP baseline against PSP and Vita
-bun run build         # dist/main.js + dist/main.pak (bundle + baked tiles)
+bun run build         # dist/pocket-figma.js + .pak (bundle + baked tiles)
 bun run psp -- -r     # dist/EBOOT.PBP — copy to ms0:/PSP/GAME/PocketFigma/
 bun run vita -- -r    # dist/vita/PocketFigma.vpk — native 960x544 Vita build
+bun run symbian       # dist/symbian/pocket-figma.sis — Nokia E7 / Belle
+bun run symbian:guest # JS/PAK only; no Rust, GCCE, Docker, or device
 bun run desktop       # run windowed via the vendored uihost (wgpu)
 bun run golden        # byte-exact 960x544 controller/touch/fullscreen goldens
 bun run e2e:vita      # build the VPK and compare native Vita3K captures
@@ -76,6 +84,23 @@ Pocket Figma alongside PocketJS demos and OpenStrike instead of replacing
 them. Its final package goes through PocketJS's shared Vita asset resolver:
 Pocket Figma's icon, 840×500 background, 280×158 startup image, and template
 overlay the framework defaults as one validated LiveArea contract.
+
+The Symbian build uses PocketJS's isolated Nokia E7 toolchain and the same
+manifest-resolved guest. PSP and Vita retain the fixed 480×272 logical plan;
+the E7 starts at 640×360 and follows its 360×640 portrait viewport without
+remounting the DeepZoom state. The app id deterministically owns development
+UID `0xEEB7A533`, executable `PocketJsPocketFigmaEEB7A533.exe`, and
+`dist/symbian/pocket-figma.sis`, so it installs alongside other PocketJS E7
+apps. The pinned `vendor/pocketjs` revision contains the Symbian backend;
+`POCKETJS_ROOT` remains available only for testing a newer PocketJS checkout:
+
+```sh
+bun run check:platforms
+bun run build
+bun run symbian:guest
+bun run test:symbian-package
+bun run test:symbian-smoke
+```
 
 Vita builds expect VitaSDK (via `$VITASDK`, falling back to `~/vitasdk`),
 `cargo-vita`, and the pinned Rust nightly in

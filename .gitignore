@@ -3,6 +3,7 @@ node_modules/
 dist/*.js
 dist/*.pak
 dist/EBOOT.PBP
+dist/symbian/
 dist/vita/
 target/
 *.fig
