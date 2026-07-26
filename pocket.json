@@ -4,7 +4,7 @@
   "id": "dev.pocket-stack.figma",
   "name": "pocket-figma",
   "title": "Pocket Figma",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "engine": {
     "capabilities": {
       "requires": [
