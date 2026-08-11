@@ -21,6 +21,7 @@
     "test:symbian-smoke": "bun test test/symbian-smoke.test.ts",
     "test:vita-package": "bun test test/vita-package.test.ts",
     "test:psp-toolchain": "bun test test/psp-toolchain.test.ts",
-    "cover": "bun tools/gen-cover.ts"
+    "cover": "bun tools/gen-cover.ts",
+    "shots": "bun tools/capture-shots.ts"
   }
 }

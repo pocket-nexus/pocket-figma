@@ -2,7 +2,7 @@
 
 A Figma file viewer for the Sony PSP and PS Vita.
 
-<img src="docs/figma-psp-cover-zoom.png" alt="Pocket Figma on a PSP at 59% zoom: the Paper Kit cover — a hand-drawn character asking 'I'm out of paper, got any?' — with the viewer HUD along the bottom" width="100%" />
+<img src="docs/figma-psp-components-zoom.png" alt="Pocket Figma on a PSP at 24% zoom on the kit's Components page: the Tag, Badge, Pagination and Tabs artboards with their dashed component-instance outlines, and the viewer HUD along the bottom" width="100%" />
 
 The [Paper Wireframe Kit (Community)](https://www.figma.com/community/file/1075811850250564922)
 — 14,430 nodes, 2,293 component instances, hand-drawn Patrick Hand type,
@@ -10,12 +10,13 @@ photos, masks — baked at compile time into streamed CLUT8 tile pyramids and
 panned with the analog nub at 60 fps on a 2004 handheld. No Figma runtime,
 no fonts, no network: the device never parses, it only consumes.
 
-| whole page at 8% | one component at 100% |
-|---|---|
-| ![The Welcome page fit to the PSP screen](docs/figma-psp-fit.png) | ![The kit's calendar component at full zoom](docs/figma-sim-calendar.png) |
+| whole page at 8% | the 26,000-pixel canvas at 3% | one component at 100% |
+|---|---|---|
+| ![The Welcome page fit to the PSP screen](docs/figma-psp-fit.png) | ![The Components page fit to the PSP screen, its artboard row spanning the canvas](docs/figma-psp-components-fit.png) | ![The kit's calendar component at full zoom](docs/figma-sim-calendar.png) |
 
-Both frames are the executable's own 480×272 framebuffer, captured in the
-deterministic emulator the byte-exact tests run on. The full story — what
+Every frame here is the executable's own 480×272 framebuffer, captured in the
+deterministic emulator the byte-exact tests run on. Regenerate them with
+`bun run shots`. The full story — what
 actually lives inside a `.fig`, the `overrideKey` bug, the tile cooker, the
 streaming architecture — is in the blog post:
 [Pocket Figma: Figma at 333 MHz](https://pocketjs.dev/blog/pocket-figma/).
