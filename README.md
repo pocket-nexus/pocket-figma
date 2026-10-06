@@ -21,7 +21,7 @@ actually lives inside a `.fig`, the `overrideKey` bug, the tile cooker, the
 streaming architecture — is in the blog post:
 [Pocket Figma: Figma at 333 MHz](https://pocketjs.dev/blog/pocket-figma/).
 
-Built on [PocketJS](https://github.com/pocket-stack/pocketjs) and its
+Built on [PocketJS](https://github.com/pocket-nexus/pocketjs) and its
 deep-zoom engine layer (TILESET pak entries, `loadTileTexture`/`freeTexture`
 streaming ops, the `<DeepZoom>` component). `pocket-figma` is the first app
 in the `pocket-<product>` family; its [`pocket.json`](./pocket.json) is the
@@ -67,7 +67,7 @@ PSP builds resolve the normalized SDK in a fixed order: `PSP_SDK`, then
 (or the same path under `~/.cache`). Both SDK environment variables are then
 exported to the build, so Rust and QuickJS cannot silently select different
 toolchains. The SDK, `rust-psp`, and `quickjs-rs` sources and exact revisions
-come from PocketJS's single toolchain manifest and the `pocket-stack`
+come from PocketJS's single toolchain manifest and the `pocket-nexus`
 organization repositories. No DreamCart checkout is required.
 
 The Vita target keeps PocketJS's 480×272 logical canvas while selecting the
